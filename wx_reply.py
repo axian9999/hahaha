@@ -3,6 +3,21 @@ import re
 
 import tuling_robot
 
+keyword = {'今天大便没拉':'哎呦',
+           '我跟你说':'在呢在呢,怎么呢?',
+           '工资':'15号才发呢',
+           '妞妞':'在呢',
+           '晾衣服':'哇,我老婆真勤劳',
+           '拖地':'哇,我老婆真勤劳',
+           '忙死了':'今天的你也辛苦啦',
+           '猪猪':'你也是我的小猪猪',
+           '生日':'呀,我老婆生日是7月4号',
+           '臭屁':'略略略,你才臭屁呢',
+           '喂':'在呢在呢,啥事',
+           '拉了':'哇,祝贺你啊',
+           '烦死了':'乖,摸摸头',
+           '白痴':'白痴在说谁?'
+           }
 
 def auto_accept_friends(msg):
     """自动接受好友"""
@@ -21,8 +36,13 @@ def auto_reply(msg):
 
 def keyword_reply(msg):
     """关键字回复"""
-    if '你叫啥' in msg.text or '你叫啥名字' in msg.text:
-        return msg.reply('沃德天·维森莫·拉莫帅·帅德布耀')
+    # if '你叫啥' in msg.text or '你叫啥名字' in msg.text:
+    #     return msg.reply('沃德天·维森莫·拉莫帅·帅德布耀')
+    # if '亲亲' in msg.text or '我跟你说' in msg.text:
+    #     return msg.reply('在呢在呢')
+    for key in keyword:
+        if str(key) in msg.text:
+            return msg.reply(keyword[key])
     pass
 
 

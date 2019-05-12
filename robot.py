@@ -7,7 +7,8 @@ import load
 
 # 微信机器人，缓存登录信息，console_qr表示在控制台打出二维码，部署到服务器时需要加上
 # 如果你不需要部署到服务器中，可以去掉console_qr=True这个参数
-bot = Bot(cache_path=True, console_qr=True)
+# bot = Bot(cache_path=True, console_qr=True)
+bot = Bot(cache_path=True)
 # 加载配置信息到机器人
 load.load_config_to_bot(bot)
 
@@ -42,15 +43,16 @@ def group_msg(msg):
         msg.forward(msg.bot.master, prefix='「{0}」在群「{1}」中艾特了你：'.format(msg.member.name, msg.chat.name))
 
     if msg.type == TEXT:
+        wx_reply.auto_reply(msg)
         # 群回复
-        if msg.bot.is_group_reply:
-            if msg.bot.is_group_at_reply:
-                # @机器人才回复
-                if msg.is_at:
-                    wx_reply.auto_reply(msg)
-            else:
-                # 不用@直接回复
-                wx_reply.auto_reply(msg)
+        # if msg.bot.is_group_reply:
+        #     if msg.bot.is_group_at_reply:
+        #         # @机器人才回复
+        #         if msg.is_at:
+        #             wx_reply.auto_reply(msg)
+        #     else:
+        #         # 不用@直接回复
+        #         wx_reply.auto_reply(msg)
     elif msg.type == SHARING and msg.bot.is_listen_sharing and msg.chat in msg.bot.listen_sharing_groups:
         # 群分享转发监控，防止分享广告
         msg.forward(msg.bot.master, prefix='分享监控：「{0}」在「{1}」分享了：'.format(msg.member.name, msg.chat.name))
